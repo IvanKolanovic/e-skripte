@@ -3,14 +3,17 @@ import type { Actions, PageServerLoad } from './$types.js';
 import { superValidate } from 'sveltekit-superforms';
 import { editProfileSchema } from './schema';
 import { zod } from 'sveltekit-superforms/adapters';
-import { getUserProfileWithLocals, updateUser } from '$lib/api/index.js';
+import { getUserProfileWithLocals, updateUser, uploadFile, uploadPicture } from '$lib/api/index.js';
 import type { UserProfile } from '$lib/api/interfaces.js';
 import { toast } from 'svelte-sonner';
 
 export const load: PageServerLoad = async ({ locals }) => {
+	const userProfile = await getUserProfileWithLocals(locals);
 	return {
-		userProfile: await getUserProfileWithLocals(locals),
-		form: await superValidate(zod(editProfileSchema))
+		userProfile,
+		form: await superValidate(zod(editProfileSchema)),
+		schools: [],
+		subjects: []
 	};
 };
 
@@ -26,16 +29,16 @@ export const actions: Actions = {
 			});
 		}
 
+		const path = await uploadPicture(form.data.picture);
 		const data: UserProfile = form.data as UserProfile;
 		data.id = user.id;
+		data.picture = path ?? '';
 
 		const updatedUser = await updateUser(data);
 
-		if (!updatedUser) toast.error('Oops. Failed to save your information.');
-		else toast.success('Your information has been saved.');
-
 		return {
-			form
+			form,
+			success: true
 		};
 	}
 };

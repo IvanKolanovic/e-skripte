@@ -76,9 +76,10 @@ export const getOrCreateUserProfileGithub = async (locals: App.Locals) => {
 };
 
 export const updateUser = async (data: UserProfile) => {
+
 	await db
 		.update(profileTable)
-		.set({ firstName: data.firstName, lastName: data.lastName })
+		.set({ firstName: data.firstName, lastName: data.lastName, picture: data.picture })
 		.where(eq(profileTable.id, data.id));
 
 	const newProfile = await getUserProfile(data.id);
@@ -88,10 +89,6 @@ export const updateUser = async (data: UserProfile) => {
 	}
 
 	return newProfile;
-};
-
-export const uploadPicture = async (file: File): Promise<string> => {
-	return '';
 };
 
 export const changePassword = async (data: ChangePasswordRequest): Promise<boolean> => {
@@ -291,6 +288,20 @@ export async function uploadFile(file: File): Promise<string | undefined> {
 		const publicData = supabase
 		.storage
 		.from('materials')
+		.getPublicUrl(data?.path ?? '');
+
+	return publicData?.data?.publicUrl;
+}
+
+
+export async function uploadPicture(file: File): Promise<string | undefined> {
+	const { data, error } = await supabase.storage
+		.from('profile')
+		.upload(`${crypto.randomUUID()}`, file);
+
+		const publicData = supabase
+		.storage
+		.from('profile')
 		.getPublicUrl(data?.path ?? '');
 
 	return publicData?.data?.publicUrl;

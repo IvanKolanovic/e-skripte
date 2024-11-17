@@ -15,18 +15,9 @@
 	});
 
 	const { form: formData, enhance } = form;
-
-	// async function handleFileUpload(event: Event) {
-	// 	const target = event.target as HTMLInputElement;
-	// 	if (target.files && target.files.length > 0) {
-	// 		const file = target.files[0];
-	// 		const url = await uploadPicture(file);
-	// 		formData.update(data => ({ ...data, picture: url })); // Update the picture field correctly
-	// 	}
-	// }
 </script>
 
-<form method="POST" use:enhance>
+<form method="POST" use:enhance enctype="multipart/form-data">
 	<Form.Field {form} name="firstName">
 		<Form.Control let:attrs>
 			<Form.Label>First Name</Form.Label>
@@ -50,26 +41,13 @@
 			<Input
 				{...attrs}
 				type="file"
-				name="image"
-				accept="image/png, image/jpeg"
+				name="picture"
+				id="picture"
+				bind:value={$formData.picture}
 			/>
 		</Form.Control>
 		<Form.Description>Upload optional profile picture.</Form.Description>
 		<Form.FieldErrors />
 	</Form.Field>
-
-
-	<!-- <Form.Field {form} name="picture">
-		<Form.Control let:attrs>
-			<Form.Label>Profile Picture</Form.Label>
-			<Input {...attrs}  type="file"
-            name="image"
-            accept="image/png, image/jpeg"
-            fileFieldProxy={$formData.picture} />
-		</Form.Control>
-		<Form.Description>This is your public email.</Form.Description>
-		<Form.FieldErrors />
-	</Form.Field> -->
-
 	<Form.Button>Submit</Form.Button>
 </form>

@@ -3,11 +3,11 @@
 	import type { ActionData, PageData } from './$types';
 	import SubjectCard from './(components)/subject-card.svelte';
 	import SubjectDialog from './(components)/subject-dialog.svelte';
+	import { enhance } from '$app/forms';
 
 	const { data, form } = $props<{ data: PageData; form: ActionData }>();
 
 	$effect(() => {
-		console.log("tuuuuuuuuuu sam");
 		if (form?.success) invalidateAll();
 	});
 </script>

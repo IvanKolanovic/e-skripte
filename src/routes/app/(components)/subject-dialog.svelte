@@ -5,7 +5,7 @@
 	import * as Select from '$lib/components/ui/select/index.js';
 	import type { School, SubjectWithSchool } from '$lib/api/interfaces';
 	import { enhance } from '$app/forms';
-	import { page } from '$app/stores';
+	import { invalidateAll } from '$app/navigation';
 
 	const data = $props();
 	let open = $state(false);
@@ -27,18 +27,13 @@
 		}
 	}
 
-	async function handleSubmit(e: SubmitEvent) {
-        e.preventDefault();
-		const form = e.target as HTMLFormElement;
-		const response = await fetch(form.action, {
-			method: 'POST',
-			body: new FormData(form)
-		});
-		const result = await response.json();
-		
-		if (result.success) {
-			handleClose();
-		}
+	function handleEnhance() {
+		return async ({ result }: { result: any }) => {
+			if (result.type === 'success') {
+				await invalidateAll();
+				handleClose();
+			}
+		};
 	}
 </script>
 
@@ -96,12 +91,15 @@
 		</div>
 
 		<Dialog.Footer>
-			<form method="POST" action="?/addSubject" onsubmit={handleSubmit}>
+			<form 
+				method="POST" 
+				action="?/addSubject" 
+				use:enhance={handleEnhance}
+			>
 				<input type="hidden" name="subjectId" value={selectedSubject ?? ''} />
 				<button
 					type="submit"
 					disabled={!selectedSubject}
-					data-sveltekit-reload
 					class="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground ring-offset-background transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
 				>
 					Save changes

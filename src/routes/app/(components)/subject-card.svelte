@@ -9,20 +9,6 @@
 	export let postsNum: string;
 	export let subjectId: string;
 
-	async function handleSubmit(e: SubmitEvent) {
-		e.preventDefault();
-		const form = e.target as HTMLFormElement;
-		const response = await fetch(form.action, {
-			method: 'POST',
-			body: new FormData(form)
-		});
-		const result = await response.json();
-		
-		if (result.success) {
-			// You might want to add additional handling here
-			// like closing the dropdown menu
-		}
-	}
 </script>
 
 <Card.Root  class="h-full border-filled hover:border-primary hover:cursor-pointer transition-colors">
@@ -39,7 +25,7 @@
 					<MoreHorizontal class="h-4 w-4" />
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content>
-					<form method="POST" action="?/deleteSubject" onsubmit={handleSubmit}>
+					<form method="POST" action="?/deleteSubject" use:enhance>
 						<input type="hidden" name="subjectId" value={subjectId} />
 						<DropdownMenu.Item class="text-destructive focus:text-destructive">
 							<button type="submit" class="w-full flex items-center">

@@ -1,7 +1,18 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
+	import { type PageData, type ActionData } from '../$types';
     import SettingsForm from "./settings-form.svelte";
-    const {data} = $props()
+	const { data, form } = $props<{ data: PageData; form: ActionData }>();
+	import { invalidateAll } from '$app/navigation';
+	import { toast, Toaster } from 'svelte-sonner';
+
+	$effect(() => {
+		console.log(form);
+		if (form?.success) {
+			toast.success('Profile updated successfully');
+			invalidateAll()
+		}
+	});
 </script>
 
 <svelte:head>
@@ -36,5 +47,6 @@
 				</Card.Root>
 			</div>
 		</div>
+		<Toaster position="top-right" />
 	</main>
 </div>
