@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1731171274165,
+      "tag": "0000_purple_shatterstar",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1731614920220,
+      "tag": "0001_minor_puff_adder",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1731695724784,
+      "tag": "0002_shallow_punisher",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1731862303575,
+      "tag": "0003_majestic_lockjaw",
+      "breakpoints": true
+    }
+  ]
+}
