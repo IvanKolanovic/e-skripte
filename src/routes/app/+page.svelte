@@ -8,8 +8,12 @@
 	const { data, form } = $props<{ data: PageData; form: ActionData }>();
 
 	$effect(() => {
-		if (form?.success) {
+		if (form?.success && form.type === 'add') {
 			toast.success('Subject added successfully');
+			invalidateAll();
+		}
+		else if (form?.success && form.type === 'delete') {
+			toast.success('Subject deleted successfully');
 			invalidateAll();
 		}
 	});
@@ -20,14 +24,13 @@
 </svelte:head>
 <div class="mx-5 mt-10 grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
 	{#each data.subjects as subject}
-		<a href={`/app/subjects/${subject.id}`}>
 			<SubjectCard
 				subjectId={subject.id}
 				title={subject.name}
 				description={subject.description}
 				postsNum={subject.postNum}
-			/></a
-		>
+				data={data.form}
+			/>
 	{/each}
 
 	<SubjectDialog schools={data.schools} />

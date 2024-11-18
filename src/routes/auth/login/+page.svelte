@@ -2,6 +2,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
+	import { Github } from 'lucide-svelte';
 </script>
 
 <svelte:head>
@@ -12,12 +13,12 @@
 		<div class="mx-auto grid w-[350px] gap-6">
 			<div class="grid gap-2 text-center">
 				<h1 class="text-3xl font-bold">Login</h1>
-				<p class="text-muted-foreground text-balance">
+				<!-- <p class="text-muted-foreground text-balance">
 					Enter your email below to login to your account
-				</p>
+				</p> -->
 			</div>
 			<div class="grid gap-4">
-				<form method="post" action="?/login">
+				<!-- <form method="post" action="?/login">
 					<div class="grid gap-2">
 						<Label for="email">Email</Label>
 						<Input id="email" type="email" placeholder="m@example.com" required />
@@ -32,13 +33,16 @@
 						<Input id="password" type="password" required />
 					</div>
 					<Button type="submit" class="w-full">Login</Button>
-				</form>
-					<Button href="/auth/login/github" variant="outline" class="w-full">Login with Github</Button>
+				</form> -->
+				<Button href="/auth/login/github" variant="outline" class="w-full">
+					<Github />
+					Login with Github</Button
+				>
 			</div>
-			<div class="mt-4 text-center text-sm">
+			<!-- <div class="mt-4 text-center text-sm">
 				Don&apos;t have an account?
 				<a href="/auth/register" class="underline"> Register </a>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<div class="mr-10 hidden bg-white lg:block">

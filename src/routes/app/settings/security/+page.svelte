@@ -2,7 +2,6 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Toaster } from 'svelte-sonner';
 	import SecurityCreateForm from './securityCreate-form.svelte';
-	import SecurityEditForm from './securityEdit-form.svelte';
 	const { data } = $props();
 </script>
 
@@ -30,18 +29,10 @@
 				<Card.Root>
 					<Card.Header>
 						<Card.Title>Password Information</Card.Title>
-						{#if data.userProfile.password === ''}
-							<Card.Description>Set your first password</Card.Description>
-						{:else}
-							<Card.Description>Change your password</Card.Description>
-						{/if}
+						<Card.Description>Change your password</Card.Description>
 					</Card.Header>
 					<Card.Content>
-						{#if data.userProfile.password === ''}
-							<SecurityCreateForm data={data.createForm} />
-						{:else}
-							<SecurityEditForm data={data.editForm} />
-						{/if}
+						<SecurityCreateForm data={data.createForm} />
 					</Card.Content>
 				</Card.Root>
 				<Toaster position="top-right" />
