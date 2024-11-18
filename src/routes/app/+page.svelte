@@ -3,12 +3,15 @@
 	import type { ActionData, PageData } from './$types';
 	import SubjectCard from './(components)/subject-card.svelte';
 	import SubjectDialog from './(components)/subject-dialog.svelte';
-	import { enhance } from '$app/forms';
+	import { toast, Toaster } from 'svelte-sonner';
 
 	const { data, form } = $props<{ data: PageData; form: ActionData }>();
 
 	$effect(() => {
-		if (form?.success) invalidateAll();
+		if (form?.success) {
+			toast.success('Subject added successfully');
+			invalidateAll();
+		}
 	});
 </script>
 
@@ -28,4 +31,5 @@
 	{/each}
 
 	<SubjectDialog schools={data.schools} />
+	<Toaster position="top-right" />
 </div>

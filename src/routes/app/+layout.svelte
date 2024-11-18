@@ -84,7 +84,7 @@
 					<DropdownMenu.Separator />
 					<a href="/app/settings"><DropdownMenu.Item>Settings</DropdownMenu.Item></a>
 					<DropdownMenu.Separator />
-					<DropdownMenu.Item>Logout</DropdownMenu.Item>
+					<a href="/auth/logout"><DropdownMenu.Item>Logout</DropdownMenu.Item></a>
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
 		</div>
